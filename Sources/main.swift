@@ -7,7 +7,7 @@ let testUser = "root"
 let testPassword = "123456"
 let testDB = "LiteraryDB"
 
-func fetchData() {
+func fetchData(response:HTTPResponse) {
     let mysql = MySQL() // 创建一个MySQL连接实例
     let connected = mysql.connect(host: testHost, user: testUser, password: testPassword)
     guard connected else {
@@ -35,6 +35,8 @@ func fetchData() {
         Log.info(message: "\(row)")
     }
     Log.info(message: "连接成功")
+    response.appendBody(string: "mysql连接成功")
+    response.completed()
 }
 /// 1.创建Server
 let server = HTTPServer()
@@ -42,10 +44,7 @@ let server = HTTPServer()
 var routes = Routes()
 /// 3.添加路由到路由表
 routes.add(method: .get, uri: "/login") { (request, response) in
-    //    conncet(request, response: response)
-//    response.appendBody(string: "244444测试")
-//    response.completed()
-    fetchData()
+    fetchData(response: response)
 }
 /// 4.将路由表添加到Server
 server.addRoutes(routes)
