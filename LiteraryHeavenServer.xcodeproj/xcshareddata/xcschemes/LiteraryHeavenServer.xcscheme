@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_803"
+               BlueprintIdentifier = "OBJ_805"
                BuildableName = "PerfectLib.framework"
                BlueprintName = "PerfectLib"
-               ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+               ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_819"
+               BlueprintIdentifier = "OBJ_821"
                BuildableName = "PerfectThread.framework"
                BlueprintName = "PerfectThread"
-               ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+               ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -42,10 +42,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_828"
+               BlueprintIdentifier = "OBJ_830"
                BuildableName = "COpenSSL.framework"
                BlueprintName = "COpenSSL"
-               ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+               ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -56,10 +56,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1516"
+               BlueprintIdentifier = "OBJ_1518"
                BuildableName = "PerfectCrypto.framework"
                BlueprintName = "PerfectCrypto"
-               ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+               ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -70,10 +70,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1535"
+               BlueprintIdentifier = "OBJ_1537"
                BuildableName = "PerfectNet.framework"
                BlueprintName = "PerfectNet"
-               ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+               ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -84,10 +84,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1556"
+               BlueprintIdentifier = "OBJ_1558"
                BuildableName = "PerfectHTTP.framework"
                BlueprintName = "PerfectHTTP"
-               ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+               ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -98,10 +98,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1581"
+               BlueprintIdentifier = "OBJ_1583"
                BuildableName = "PerfectCZlib.framework"
                BlueprintName = "PerfectCZlib"
-               ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+               ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -112,10 +112,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1615"
+               BlueprintIdentifier = "OBJ_1617"
                BuildableName = "PerfectHTTPServer.framework"
                BlueprintName = "PerfectHTTPServer"
-               ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+               ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -126,10 +126,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1654"
+               BlueprintIdentifier = "OBJ_1656"
                BuildableName = "PerfectCHTTPParser.framework"
                BlueprintName = "PerfectCHTTPParser"
-               ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+               ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -140,10 +140,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1675"
+               BlueprintIdentifier = "OBJ_1677"
                BuildableName = "MySQL.framework"
                BlueprintName = "MySQL"
-               ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+               ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -154,10 +154,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1682"
-               BuildableName = "PerfectTemplate"
-               BlueprintName = "PerfectTemplate"
-               ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+               BlueprintIdentifier = "OBJ_1684"
+               BuildableName = "LiteraryHeavenServer"
+               BlueprintName = "LiteraryHeavenServer"
+               ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -185,10 +185,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_803"
+            BlueprintIdentifier = "OBJ_805"
             BuildableName = "PerfectLib.framework"
             BlueprintName = "PerfectLib"
-            ReferencedContainer = "container:PerfectTemplate.xcodeproj">
+            ReferencedContainer = "container:LiteraryHeavenServer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
