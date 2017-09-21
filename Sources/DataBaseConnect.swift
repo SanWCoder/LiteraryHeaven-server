@@ -3,6 +3,8 @@ import PerfectLib
 
 /// 数据库连接类
 class DataBaseConnect{
+    let dataBaseName = "LiteraryDB"
+
     var host : String{ // 地址
         get {
             return "127.0.0.1"
@@ -27,6 +29,10 @@ class DataBaseConnect{
             let connected = mysql.connect(host: host, user: user, password: password)
             guard connected else {
                 Log.info(message: "数据库连接失败")
+                return
+            }
+            guard selectDB(dataBaseName: dataBaseName) else {
+                Log.info(message: "选择数据库失败")
                 return
             }
         }

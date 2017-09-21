@@ -9,8 +9,8 @@ server.documentRoot = "./webroot"
 /// 2.创建路由表
 var routes = Routes()
 /// 3.添加路由到路由表
-routes.add(method: .get, uri: "/login") { (request, response) in
-    guard (request.param(name: "username") != nil) else{
+routes.add(method: .post, uri: "/login") { (request, response) in
+    guard (request.param(name: "phone") != nil) else{
         response.appendBody(string: "缺少用户名参数")
         response.completed()
         return
@@ -20,9 +20,32 @@ routes.add(method: .get, uri: "/login") { (request, response) in
         response.completed()
         return
     }
-    let userOprator = UserOprator()
-    response.appendBody(string:userOprator.queryUserInfo(userName:request.param(name: "username")!,password:request.param(name: "password")!))
+    response.appendBody(string:UserOprator.userLogin(phone:request.param(name: "phone")!,password:request.param(name: "password")!)!)
     response.completed()
+}
+routes.add(method: .post, uri: "/register") { (request, response) in
+    guard (request.param(name: "verify") != nil) else{
+        response.appendBody(string: "缺少验证码参数")
+        response.completed()
+        return
+    }
+    guard (request.param(name: "phone") != nil) else{
+        response.appendBody(string: "缺少用户名参数")
+        response.completed()
+        return
+    }
+    guard (request.param(name: "password") != nil) else{
+        response.appendBody(string: "缺少密码参数")
+        response.completed()
+        return
+    }
+    guard (request.param(name: "nickname") != nil) else{
+        response.appendBody(string: "缺少昵称参数")
+        response.completed()
+        return
+    }
+    response.appendBody(string:UserOprator.userRegister(phone: request.param(name: "phone")!, nickname: request.param(name: "nickname")!, password: request.param(name: "password")!)!)
+        response.completed()
 }
 /// 4.将路由表添加到Server
 server.addRoutes(routes)
