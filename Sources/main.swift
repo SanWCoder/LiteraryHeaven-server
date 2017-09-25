@@ -44,7 +44,7 @@ routes.add(method: .post, uri: "/register") { (request, response) in
         response.completed()
         return
     }
-    response.appendBody(string:UserOprator.userRegister(phone: request.param(name: "phone")!, nickname: request.param(name: "nickname")!, password: request.param(name: "password")!)!)
+    response.appendBody(string:UserOprator.userRegister(phone: request.param(name: "phone")!, nickname: request.param(name: "nickname")!, password: request.param(name: "password")!,uuid:request.header(HTTPRequestHeader.Name.custom(name: "uuid"))!)!)
         response.completed()
 }
 /// 4.将路由表添加到Server
