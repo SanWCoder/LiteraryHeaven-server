@@ -1,9 +1,16 @@
 # LiteraryHeaven-server
+
 LiteraryHeaven服务器开发（Swift + perfect）[:对应客户端项目LiteraryHeaven（Swift）](https://github.com/SanWCoder/LiteraryHeaven)
-> 2017.9.21--添加登录注册接口,建立了tb_user表
-* 添加登录注册接口,暂时缺少token值得生成
-* 建立了tb_user表
-> 数据库设计规范
+
+不足之处，还望海涵，有问题可以随时交流哦😯 [:mail_SanW@163.com](http://mail.163.com/)
+
+# 更新记录
+
+2017.9.26--添加token生成规则，添加修改用户名跟简介，头像，性别接口  
+
+2017.9.21--添加登录注册接口,连接MySQL建立了tb_user表
+
+# 数据库设计规范
 
 该规范用于规范MySQL数据库的表设计，目的是希望规范数据库设计，尽量提前避免由于数据库设计不当而产生的麻烦。
 
@@ -56,7 +63,7 @@ Target Server Type    : MySQL
 Target Server Version : 50719
 File Encoding         : utf-8
 
-Date: 09/21/2017 17:52:34 PM
+Date: 09/26/2017 17:20:19 PM
 */
 
 SET NAMES utf8;
@@ -69,7 +76,7 @@ DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE `tb_user` (
 `userid` int(6) NOT NULL AUTO_INCREMENT,
 `password` varchar(64) DEFAULT NULL,
-`nickname` varchar(8) DEFAULT NULL,
+`nickname` varchar(16) DEFAULT NULL,
 `phone` varchar(16) DEFAULT NULL,
 `head` varchar(256) DEFAULT NULL,
 `sex` tinyint(1) NOT NULL DEFAULT '0',
@@ -77,15 +84,19 @@ CREATE TABLE `tb_user` (
 `info` varchar(16) DEFAULT NULL,
 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `uuid` varchar(32) DEFAULT NULL,
+`token` varchar(64) NOT NULL DEFAULT '0',
+`signout_time` datetime DEFAULT NULL,
+`signin_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `tb_user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_user` VALUES ('10', '604a135e22db62d29d82af49d248737c', 'rrrrr is', '185010204962222', null, '0', '0', null, '2017-09-21 16:46:02', null), ('11', 'e10adc3949ba59abbe56e057f20f883e', 'SanW', '18501020496', null, '0', '0', null, '2017-09-21 16:57:58', null);
+INSERT INTO `tb_user` VALUES ('13', '14e1b600b1fd579f47433b88e8d85291', 'SanW', '18501020496', 'http://a.png', '1', '0', '我也不知道自己是谁', '2017-09-26 00:53:59', '4AF6F657E5F341CEAFA0B66D5C4EF8D7', '0471a3be97f1dafb578d1b3a487b981e', null, '2017-09-26 08:53:59');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
 ```
