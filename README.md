@@ -48,7 +48,9 @@ LiteraryHeaven服务器开发（Swift + perfect）[:对应客户端项目Literar
 | creater | varchar | 创建人 |
 | last_modify_time |	datetime | 最后修改时间 |
 | last_modifier	| varchar | 最后修改人|
-> tb_user
+
+# 数据库表设计sql-- tb_user
+
 ```
 /*
 Navicat Premium Data Transfer
