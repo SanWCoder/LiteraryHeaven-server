@@ -1,6 +1,8 @@
 import Foundation
 import PerfectCrypto
 
+
+/// 网络错误码
 public enum netCode : Int{
     /// 成功
     case success = 0
@@ -35,6 +37,12 @@ public enum netCode : Int{
     }
 }
 
+/// 文章
+public enum groupType{
+    case loveTopic
+    case wedding
+    case weddingDress
+}
 extension String{
 
     func md5() -> String {

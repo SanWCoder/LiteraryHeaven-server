@@ -55,6 +55,10 @@ routes.add(method: .put, uri: "/users/updateInfo") { (request, response) in
     response.appendBody(string:UserOprator.updateUserInfo(request: request)!)
     response.completed()
 }
+routes.add(method: .get, uri: "/articles/article") { (request, response) in
+    response.appendBody(string:articleOprator.articleInfo(request: request)!)
+    response.completed()
+}
 /// 4.将路由表添加到Server
 server.addRoutes(routes)
 /// 5.启动Server

@@ -118,7 +118,7 @@ class UserOprator: DataBaseOprator {
             let sex : String? = request.param(name: "sex")
             let info  : String? = request.param(name: "info")
             var sql = ""
-//            print("nick = \(nickName),header = \(header),sex = \(sex),info = \(info)")
+            //            print("nick = \(nickName),header = \(header),sex = \(sex),info = \(info)")
             if (nickName == nil && header == nil && sex == nil && info == nil) {
                 baseResponseJson[codeKey] = netCode.paramError.rawValue
                 baseResponseJson[msgKey] = netCode.paramError.description
@@ -136,7 +136,7 @@ class UserOprator: DataBaseOprator {
             else if info != nil{
                 sql = "UPDATE tb_user SET info = '\(info!)'"
             }
-           Log.info(message: sql)
+            Log.info(message: sql)
             if !mysql.query(statement: sql) {
                 baseResponseJson[codeKey] = netCode.oprataError.rawValue
                 baseResponseJson[msgKey] = netCode.oprataError.description
@@ -180,5 +180,48 @@ class UserOprator: DataBaseOprator {
             return false
         }
         return true
+    }
+}
+
+/// 文章操作类
+class articleOprator: DataBaseOprator {
+    
+    /// 请求文章信息
+    ///
+    /// - Parameter request: 请求
+    /// - Returns: <#return value description#>
+    class func articleInfo(request : HTTPRequest) -> String? {
+        let articleId = request.param(name: "articleId") ?? "0"
+        let count = request.param(name: "count") ?? "20"
+        let type = request.param(name: "type") ?? "1"
+        Log.info(message: "SELECT * FROM tb_article where articleid > '\(articleId)' and groupid = '\(type)' limit \(count)")
+        if !mysql.query(statement: "SELECT * FROM tb_article where articleid > '\(articleId)' and groupid = '\(type)' limit \(count)") {
+            baseResponseJson[codeKey] = netCode.oprataError.rawValue
+            baseResponseJson[msgKey] = netCode.oprataError.description
+            baseResponseJson[dataKey] = []
+        }
+        else {
+            baseResponseJson[codeKey] = netCode.success.rawValue
+            baseResponseJson[msgKey] = netCode.success.description
+            var responseArrray : [Dictionary<String, Any>] = []
+            mysql.storeResults()?.forEachRow(callback: { (row) in
+                var responseDict : [String:Any] = [:]
+                responseDict["articleId"] = row[0]
+                responseDict["articleTitle"] = row[1]
+                responseDict["authorNick"] = row[2]
+                responseDict["iconImage"] = row[8]
+                responseDict["clickCount"] = row[6]
+                responseDict["articleImage"] = row[4]
+                responseDict["webUrl"] = row[7]
+                responseArrray.append(responseDict)
+            })
+            baseResponseJson[dataKey] = responseArrray
+            Log.info(message: "成功 " + "SELECT * FROM tb_article where articleid > '\(articleId)' and groupid = '\(type)' limit \(count)")
+        }
+        do {
+            return try baseResponseJson.jsonEncodedString()
+        } catch{
+            return nil
+        }
     }
 }
