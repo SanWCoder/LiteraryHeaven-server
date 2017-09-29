@@ -7,6 +7,22 @@ LiteraryHeaven服务端开发（Swift + perfect）
 
 不足之处，还望海涵，有问题可以随时交流哦😯 [:mail_SanW@163.com](http://mail.163.com/)
 
+# 使用
+
+```
+git clone https://github.com/SanWCoder/LiteraryHeaven-server.git
+
+cd LiteraryHeaven-server
+
+swift build
+
+.build/debug/LiteratyHeavenServer
+
+// 如果需要生成xcode项目可调式
+swift package generate-xcodeproj
+
+```
+
 # 更新记录
 
 2017.9.29--添加退出接口，调整登录时生成token，退出时清空token
@@ -129,7 +145,7 @@ COMMIT;
 SET FOREIGN_KEY_CHECKS = 1;
 
 ```
-## tb_artivleType
+#### tb_artivleType
 
 ```
 SET NAMES utf8;
