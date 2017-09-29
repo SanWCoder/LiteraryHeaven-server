@@ -24,7 +24,7 @@ routes.add(method: .post, uri: "/users/login") { (request, response) in
         response.completed()
         return
     }
-    response.appendBody(string:UserOprator.userLogin(phone:request.param(name: "phone")!,password:request.param(name: "password")!)!)
+    response.appendBody(string:UserOprator.userLogin(phone:request.param(name: "phone")!,password:request.param(name: "password")!, uuid: request.header(HTTPRequestHeader.Name.custom(name: "uuid"))!)!)
     response.completed()
 }
 routes.add(method: .post, uri: "/users/register") { (request, response) in
@@ -53,6 +53,13 @@ routes.add(method: .post, uri: "/users/register") { (request, response) in
 }
 routes.add(method: .put, uri: "/users/updateInfo") { (request, response) in
     response.appendBody(string:UserOprator.updateUserInfo(request: request)!)
+    response.completed()
+}
+routes.add(method: .put, uri: "/users/quit") { (request, response) in
+    guard (request.header(HTTPRequestHeader.Name.custom(name: "token")) != nil) else{
+        return
+    }
+    response.appendBody(string:UserOprator.userQuitLogin(token: request.header(HTTPRequestHeader.Name.custom(name: "token"))!)!)
     response.completed()
 }
 routes.add(method: .get, uri: "/articles/article") { (request, response) in

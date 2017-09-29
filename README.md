@@ -1,10 +1,15 @@
-# LiteraryHeaven-server
+# LiteraryHeaven-server简介
+LiteraryHeaven服务端开发（Swift + perfect）
 
-LiteraryHeaven服务器开发（Swift + perfect）[:对应客户端项目LiteraryHeaven（Swift）](https://github.com/SanWCoder/LiteraryHeaven)
+对应客户端项目:[LiteraryHeaven](https://github.com/SanWCoder/LiteraryHeaven)
+
+数据抓取项目:[LiteraryHeaven-crawler](https://github.com/SanWCoder/LiteraryHeaven-crawler)
 
 不足之处，还望海涵，有问题可以随时交流哦😯 [:mail_SanW@163.com](http://mail.163.com/)
 
 # 更新记录
+
+2017.9.29--添加退出接口，调整登录时生成token，退出时清空token
 
 2017.9.27--创建tb_article和tb_aticleType表，编写首页接口
 
@@ -51,9 +56,9 @@ LiteraryHeaven服务器开发（Swift + perfect）[:对应客户端项目Literar
 | last_modify_time |	datetime | 最后修改时间 |
 | last_modifier	| varchar | 最后修改人|
 
-# 数据库表设计sql
+# 数据库表设计
 
-## tb_user
+#### tb_user
 
 ```
 SET NAMES utf8;
@@ -74,7 +79,7 @@ CREATE TABLE `tb_user` (
 `info` varchar(16) DEFAULT NULL,
 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `uuid` varchar(32) DEFAULT NULL,
-`token` varchar(64) NOT NULL DEFAULT '0',
+`token` varchar(64) DEFAULT '0',
 `signout_time` datetime DEFAULT NULL,
 `signin_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (`userid`)
@@ -84,14 +89,14 @@ PRIMARY KEY (`userid`)
 --  Records of `tb_user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_user` VALUES ('13', '14e1b600b1fd579f47433b88e8d85291', 'SanW', '18501020496', 'http://a.png', '1', '0', '我也不知道自己是谁', '2017-09-26 00:53:59', '4AF6F657E5F341CEAFA0B66D5C4EF8D7', '0471a3be97f1dafb578d1b3a487b981e', null, '2017-09-26 08:53:59');
+INSERT INTO `tb_user` VALUES ('13', '14e1b600b1fd579f47433b88e8d85291', 'SanW', '18501020496', 'http://a.png', '1', '0', '我也不知道自己是谁', '2017-09-26 00:53:59', '4AF6F657E5F341CEAFA0B66D5C4EF8D7', '69b8d2d83486388e08a53a259b92943d', null, '2017-09-26 08:53:59');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
 ```
 
-## tb_article
+#### tb_article
 
 ```
 SET NAMES utf8;
@@ -104,21 +109,21 @@ DROP TABLE IF EXISTS `tb_article`;
 CREATE TABLE `tb_article` (
 `articleid` int(32) NOT NULL AUTO_INCREMENT,
 `title` varchar(128) DEFAULT NULL,
-`author` varchar(16) DEFAULT NULL,
+`author` varchar(64) DEFAULT NULL,
 `groupid` int(16) NOT NULL DEFAULT '0',
 `image` varchar(128) DEFAULT NULL,
-`content` varchar(256) DEFAULT NULL,
-`create_time` datetime DEFAULT NULL,
+`content` text,
+`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `webUrl` varchar(128) DEFAULT NULL,
 `anthor_head` varchar(128) DEFAULT NULL,
 PRIMARY KEY (`articleid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `tb_article`
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_article` VALUES ('1', '已婚新娘良心建议！婚纱买绝对是错！', '女王', '1', 'http://qnm.hunliji.com/o_1bqrin58e1c1l1dtf18ev9pu1o1rn.jpg?imageView2/1/w/100/h/100', '很多新娘都在纠结一个问题，婚纱是买还是租？结婚只结一次，肯定是买！no，no，no！楼主只想说，买了肯定后悔死你！几大件衣服占衣柜不说，还不能丢！最后只能转手低价卖出去！卖的时候，心里还很不是滋味！新娘们，千万不要觉得租的婚纱不好看！楼主花了3999元租了三套服装，一套秀禾服，一套主婚纱，一套敬酒服！还送了一个全天跟妆！特地提供试纱图片和婚礼当天图片供你们参考！你们自己看吧', '2017-12-06 00:00:00', 'http://news.sina.com.cn/sf/news/hqfx/2017-09-27/doc-ifymfcih6446366.shtml', 'http://img2.imgtn.bdimg.com/it/u=1343212205,678582139&fm=214&gp=0.jpg'), ('2', '已婚新娘tips：选纱别光看款式！ 大婚这几个重点也要注意！', '猫猫', '1', 'http://qnm.hunliji.com/Fn06pUtt404WF4Axuhqpdh1g9fPO', '亲爱的，邀请你参加【9月好物】活动哦，在【淘婚品】频道晒出你的婚品更有机会上首页头条~还有精致落地灯等你哦', '2017-12-22 00:00:00', 'http://www.chinaz.com/news/2017/0927/809116.shtml', 'http://diy.qqjay.com/u2/2012/0618/ed6982355b1340095aeaf79072bdc1cc.jpg');
+INSERT INTO `tb_article` VALUES ('16', '【婚礼纪录】婚鞋大作战　裸粉色铆钉款简直绝了', 'by：苏小花花花来自：我的备婚流程331', '0', 'http://qnm.hunliji.com/FpoIK8zY8zx_Z7hnNZKdV-3hlw3s?imageView2/1/w/100/h/100', '6月份的时候在大阪买哒，这个价格实在一般，但是日本的服务太好了，不买都觉得对不起服务的小姐，哈哈，买来当婚鞋哒，10cm真的很高，而且真的很少有人穿的铆钉结婚，本来是想买jimmy choo哒，大阪的jimmy choo款式实在一般，上脚的一瞬间就感觉就是它啦\n第一双是一个小众牌子，非常舒适，鞋型比较秀气，有种mb的感觉，mb真的山寨或者雷同设计太多，看到这个反而有耳目一新的感觉，设计师介绍鞋上的钻都是施华洛世奇哒，个人很喜欢', '2017-09-29 14:01:15', 'http://www.hunliji.com/community/detail_272771', null);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

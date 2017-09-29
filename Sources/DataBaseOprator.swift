@@ -7,7 +7,7 @@ import Foundation
 let codeKey = "code"
 let msgKey = "msg"
 let dataKey = "data"
-var baseResponseJson :[String:Any] = [codeKey:0,dataKey:[],msgKey:""]
+var baseResponseJson : [String:Any] = [codeKey:0,dataKey:[],msgKey:""]
 /// 数据库操作类
 class DataBaseOprator {
     class var mysql : MySQL{
@@ -24,8 +24,9 @@ class UserOprator: DataBaseOprator {
     /// - Parameters:
     ///   - phone: 用户名
     ///   - password: 密码
+    ///   - uuid:设备唯一ID
     /// - Returns: 返回json
-    class func userLogin(phone:String,password:String) -> String? {
+    class func userLogin(phone:String,password:String,uuid:String) -> String? {
         if !valideRegisted(phone: phone) {
             baseResponseJson[codeKey] = netCode.register.rawValue
             baseResponseJson[msgKey] = netCode.register.description
@@ -49,15 +50,21 @@ class UserOprator: DataBaseOprator {
             else{
                 baseResponseJson[codeKey] = netCode.success.rawValue
                 baseResponseJson[msgKey] = netCode.success.description
+                
                 var responseDict :[String:Any] = [:]
                 results.forEachRow(callback: { (row) in
+                    let dateTem = String(stringInterpolationSegment: Date())
+                    let date = dateTem.substring(to: dateTem.index(dateTem.startIndex, offsetBy: 19))
+                    let token = (uuid.md5() + date.md5()).md5()
+                    let success = mysql.query(statement: "UPDATE tb_user SET token = '\(token)'  where userid = '\(row[0]!)'")
+                    Log.info(message: "\(success) == UPDATE tb_user SET token = '\(token)'  where userid = '\(row[0]!)'")
                     responseDict["userId"] = row[0]
                     responseDict["nickName"] = row[2]
                     responseDict["sex"] = row[5]
                     responseDict["header"] = row[4]
                     responseDict["info"] = row[7]
                     responseDict["phone"] = row[3]
-                    responseDict["token"] = row[10]
+                    responseDict["token"] = token
                 })
                 baseResponseJson[dataKey] = responseDict
                 Log.info(message: "成功 " + "SELECT * FROM tb_user where phone = '\(phone)' and password = '\(password)'")
@@ -105,6 +112,39 @@ class UserOprator: DataBaseOprator {
             return nil
         }
     }
+    
+    /// 退出登录
+    ///
+    /// - Parameter token: token
+    /// - Returns: <#return value description#>
+    class func userQuitLogin(token:String) -> String? {
+        if token.isEmpty || (!token.isEmpty && !valideToken(token: token)){
+            baseResponseJson[codeKey] = netCode.userLogin.rawValue
+            baseResponseJson[msgKey] = netCode.userLogin.description
+            baseResponseJson[dataKey] = []
+        }else if !mysql.query(statement: "UPDATE tb_user SET token = '' where token = '\(token)'"){
+            baseResponseJson[codeKey] = netCode.oprataError.rawValue
+            baseResponseJson[msgKey] = netCode.oprataError.description
+            baseResponseJson[dataKey] = []
+            Log.info(message: "查询出错 " + "UPDATE tb_user SET token = ''")
+        }
+        else {
+            baseResponseJson[codeKey] = netCode.success.rawValue
+            baseResponseJson[msgKey] = netCode.success.description
+            baseResponseJson[dataKey] = []
+            Log.info(message: "成功 " + "UPDATE tb_user SET token = ''")
+        }
+        do {
+            return try baseResponseJson.jsonEncodedString()
+        } catch{
+            return nil
+        }
+    }
+    
+    /// 更新用户数据
+    ///
+    /// - Parameter request: 请求
+    /// - Returns: <#return value description#>
     class func updateUserInfo(request : HTTPRequest) -> String? {
         let token : String = request.header(HTTPRequestHeader.Name.custom(name: "token"))!
         if token.isEmpty || (!token.isEmpty && !valideToken(token: token)){
@@ -118,23 +158,23 @@ class UserOprator: DataBaseOprator {
             let sex : String? = request.param(name: "sex")
             let info  : String? = request.param(name: "info")
             var sql = ""
-            //            print("nick = \(nickName),header = \(header),sex = \(sex),info = \(info)")
+            // print("nick = \(nickName),header = \(header),sex = \(sex),info = \(info)")
             if (nickName == nil && header == nil && sex == nil && info == nil) {
                 baseResponseJson[codeKey] = netCode.paramError.rawValue
                 baseResponseJson[msgKey] = netCode.paramError.description
                 baseResponseJson[dataKey] = []
             }
             else if nickName != nil{
-                sql = "UPDATE tb_user SET nickname = '\(nickName!)'"
+                sql = "UPDATE tb_user SET nickname = '\(nickName!)' where token = '\(token)'"
             }
             else if header != nil{
-                sql = "UPDATE tb_user SET head = '\(header!)'"
+                sql = "UPDATE tb_user SET head = '\(header!)' where token = '\(token)'"
             }
             else if sex != nil{
-                sql = "UPDATE tb_user SET sex = '\(sex!)'"
+                sql = "UPDATE tb_user SET sex = '\(sex!)' where token = '\(token)'"
             }
             else if info != nil{
-                sql = "UPDATE tb_user SET info = '\(info!)'"
+                sql = "UPDATE tb_user SET info = '\(info!)' where token = '\(token)'"
             }
             Log.info(message: sql)
             if !mysql.query(statement: sql) {
@@ -195,7 +235,7 @@ class articleOprator: DataBaseOprator {
         let count = request.param(name: "count") ?? "20"
         let type = request.param(name: "type") ?? "1"
         Log.info(message: "SELECT * FROM tb_article where articleid > '\(articleId)' and groupid = '\(type)' limit \(count)")
-        if !mysql.query(statement: "SELECT * FROM tb_article where articleid > '\(articleId)' and groupid = '\(type)' limit \(count)") {
+        if !mysql.query(statement: "SELECT * FROM tb_article where articleid > '\(articleId)' limit \(count)") {
             baseResponseJson[codeKey] = netCode.oprataError.rawValue
             baseResponseJson[msgKey] = netCode.oprataError.description
             baseResponseJson[dataKey] = []
