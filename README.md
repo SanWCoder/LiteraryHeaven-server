@@ -10,16 +10,16 @@ LiteraryHeaven服务端开发（Swift + perfect）
 # 使用
 
 ```
-git clone https://github.com/SanWCoder/LiteraryHeaven-server.git
+~ git clone https://github.com/SanWCoder/LiteraryHeaven-server.git
 
-cd LiteraryHeaven-server
+~ cd LiteraryHeaven-server
 
-swift build
+~ swift build
 
-.build/debug/LiteratyHeavenServer
+~ .build/debug/LiteratyHeavenServer
 
 // 如果需要生成xcode项目可调式
-swift package generate-xcodeproj
+~ swift package generate-xcodeproj
 
 ```
 
