@@ -5,7 +5,7 @@ LiteraryHeaven服务端开发（Swift + perfect）
 
 数据抓取项目:[LiteraryHeaven-crawler](https://github.com/SanWCoder/LiteraryHeaven-crawler)
 
-不足之处，还望海涵，有问题可以随时交流哦😯 [:mail_SanW@163.com](http://mail.163.com/)
+不足之处，还望海涵，如有问题请发送至：[:mail_SanW@163.com](http://mail.163.com/)
 
 # 使用
 
@@ -24,6 +24,8 @@ swift package generate-xcodeproj
 ```
 
 # 更新记录
+
+2017.10.10--添加忘记密码接口
 
 2017.9.29--添加退出接口，调整登录时生成token，退出时清空token
 

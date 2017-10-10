@@ -66,6 +66,10 @@ routes.add(method: .get, uri: "/articles/article") { (request, response) in
     response.appendBody(string:articleOprator.articleInfo(request: request)!)
     response.completed()
 }
+routes.add(method: .put, uri: "/users/forgetPassword") { (request, response) in
+    response.appendBody(string:UserOprator.forgetPassword(request: request)!)
+    response.completed()
+}
 /// 4.将路由表添加到Server
 server.addRoutes(routes)
 /// 5.启动Server

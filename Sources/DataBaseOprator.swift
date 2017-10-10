@@ -194,6 +194,45 @@ class UserOprator: DataBaseOprator {
             return nil
         }
     }
+    /// 忘记密码
+    ///
+    /// - Parameter request: 请求
+    /// - Returns: <#return value description#>
+    class func forgetPassword(request : HTTPRequest) -> String? {
+        let phone : String = request.param(name: "phone")!
+        let password : String = request.param(name: "password")!
+        
+        if phone.isEmpty || password.isEmpty{
+            baseResponseJson[codeKey] = netCode.paramError.rawValue
+            baseResponseJson[msgKey] = netCode.paramError.description
+            baseResponseJson[dataKey] = []
+        }
+       else if !valideRegisted(phone: phone){
+            baseResponseJson[codeKey] = netCode.register.rawValue
+            baseResponseJson[msgKey] = netCode.register.description
+            baseResponseJson[dataKey] = []
+        }
+        else {
+            let sql : String = "UPDATE tb_user SET password = '\(password)' where phone = '\(phone)'"
+            Log.info(message: sql)
+            if !mysql.query(statement: sql) {
+                baseResponseJson[codeKey] = netCode.oprataError.rawValue
+                baseResponseJson[msgKey] = netCode.oprataError.description
+                baseResponseJson[dataKey] = []
+            }
+            else{
+                baseResponseJson[codeKey] = netCode.success.rawValue
+                baseResponseJson[msgKey] = netCode.success.description
+                baseResponseJson[dataKey] = []
+            }
+        }
+        do {
+            return try baseResponseJson.jsonEncodedString()
+        } catch{
+            return nil
+        }
+    }
+
     /// 验证账号是否已经注册
     ///
     /// - Parameter phone: 账号
