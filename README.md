@@ -5,7 +5,7 @@ LiteraryHeaven服务端开发（Swift + perfect）
 
 数据抓取项目:[LiteraryHeaven-crawler](https://github.com/SanWCoder/LiteraryHeaven-crawler)
 
-不足之处，还望海涵，如有问题请发送至：[:mail_SanW@163.com](http://mail.163.com/)
+不足之处，还望海涵，如有问题请发送至:[mail_SanW@163.com](http://mail.163.com/)
 
 # 使用
 
