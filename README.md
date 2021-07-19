@@ -35,17 +35,17 @@ LiteraryHeaven服务端开发（Swift + perfect）
 
 2017.9.21--添加登录注册接口,连接MySQL建立了tb_user表
 
-#### 一.准备阶段（SPM）
-##### 1>依存关系  
+# 一.准备阶段（SPM）
+## 1>依存关系  
 ```
 ## swfit --version // swift版本必须在3.0以上才能编译
 ```  
-##### 2>克隆基础模板  
+## 2>克隆基础模板  
 ```
 git clone https://github.com/PerfectlySoft/PerfectTemplate.git
 ```  
 所有的SPM项目至少要包括一个 Sources 目录和一个 Package.swift 文件  
-##### 3>编译  
+## 3>编译  
 ```
 swift build // 编译
 .build/debug/PerfectTemplate // 运行
@@ -53,18 +53,18 @@ swift build -c release // 编译一个用于发行的版本运行后可发行版
 swift build --clean // 清理所有编译临时文件并产生一个干净的版本 
 swift build --clean=dist // .build目录和Packages目录都会被删除。并且能够重新下载所有依存关系以获得最新版本对项目的支持。
 ```
-##### 4>生成xcode项目
+## 4>生成xcode项目
 ```
 swift package generate-xcodeproj
 ```
-#### 二，下载mysql依赖包
-##### 1> 在Package.swift 中添加MYSQL并重新编译  
+# 二，下载mysql依赖包
+## 1> 在Package.swift 中添加MYSQL并重新编译  
 ```
 .Package(url:"https://github.com/PerfectlySoft/Perfect-MySQL.git",majorVersion : 2)
 swift build // 重新编译
 ```
-##### 2>安装Homebrew 
-###### 2.1 perfect推荐使用Homebrew安装mysql如果按照homeBrow安装完则不用配置任何东西就可以运行
+## 2>安装Homebrew 
+### 2.1 perfect推荐使用Homebrew安装mysql如果按照homeBrow安装完则不用配置任何东西就可以运行
 ```
 // 安装Homebrew，Homebrew安装在/user/local目录下，同时它会创建/user/local/Cellar目录用于存放通过Homebrew安装的程序，运行brew -v查看安装版本
 
@@ -75,7 +75,7 @@ swift build // 重新编译
 // 3.安装完成以后检查文件运行是否正常。注意警告，如果之前手动安装过node最好先删除node文件 local/lib , local/include
  brew doctor 
 ```
-##### 3>Homebrew常用命令
+## 3>Homebrew常用命令
 ```
 brew search * --搜索程序，例：brew search python
 brew install * --安装程序，例：brew install python
@@ -92,7 +92,7 @@ brew server * --启动web服务器，可以通过浏览器访问http://localhost
 brew -h --查看帮助
 ```
 
-##### 4>删除Homebrew
+## 4>删除Homebrew
 ```
 cd `brew –prefix`
 rm -rf Cellar
@@ -100,7 +100,7 @@ brew prune
 rm -rf Library .git .gitignore bin/brew README.md share/man/man1/brew
 rm -rf ~/Library/Caches/Homebrew
 ```
-##### 5>使用Homebrew安装mysql
+## 5>使用Homebrew安装mysql
 
 ```
 // 1.安装mysql
@@ -117,7 +117,7 @@ mysql_secure_installation
 mysql -u root -p
 
 ```
-###### 5.1>初始化MySQL配置向导mysql_secure_installation
+### 5.1>初始化MySQL配置向导mysql_secure_installation
 ```
 // 启动mysql
 ➜  local mysql.server start        
@@ -180,7 +180,7 @@ Success.
 All done! 
 
 ```
-###### 5.2>mysql测试
+### 5.2>mysql测试
 ```
 CREATE DATABASE  `unitedtrade` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 // 创建用户
@@ -192,7 +192,7 @@ GRANT ALL PRIVILEGES ON  `unitedtrade` . * TO  'trade'@'%' WITH GRANT OPTION ;
 // 刷新权限：
 flush privileges;
 ```
-###### 5.3>MySQL其他操作
+### 5.3>MySQL其他操作
 ```
 // 终端退出mysql编辑
 \q
@@ -201,13 +201,13 @@ mysql stop
 // 安全模式启动MySQL
 mysqld_safe --skip-grant-tables
 ```
-###### 5.4>perfect连接mysql配置
+### 5.4>perfect连接mysql配置
 ```
 // 将mysqlclient.pc文件设置为可读写后删除-fno-omit-frame-pointer内容。
 // 文件路径:  
 /usr/local/lib/pkgconfig/mysqlclient.pc/
 ```
-##### 6>彻底移除mysql
+## 6>彻底移除mysql
 ```
 // 通过HomeBrew安装从头开始
 brew remove mysql  
@@ -224,11 +224,11 @@ sudo rm -rf /Library/Receipts/mysql*
 sudo rm -rf /Library/Receipts/MySQL*
 sudo rm -rf /var/db/receipts/com.mysql.*
 ```
-#### 三.使用自己手动安装完成后需要在finder中找到相应的mysql文件
+# 三.使用自己手动安装完成后需要在finder中找到相应的mysql文件
  * 遇到error :Header '/usr/local/include/mysql/mysql.h'时找到mysql文件并替换/usr/local/mysql-5.7.15-osx10.11-x86_64/include/mysql.h
  * 遇到找不到lmysqlclient文件时，在Target中找到MySQL，找到Library Search Paths中加上/usr/local/mysql-5.7.15-osx10.11-x86_64l/lib
 
-#### 四.数据库设计规范
+# 四.数据库设计规范
 
 该规范用于规范MySQL数据库的表设计，目的是希望规范数据库设计，尽量提前避免由于数据库设计不当而产生的麻烦。
 
@@ -267,7 +267,7 @@ sudo rm -rf /var/db/receipts/com.mysql.*
 | last_modify_time |	datetime | 最后修改时间 |
 | last_modifier	| varchar | 最后修改人|
 
-#### 五.数据库表设计
+# 五.数据库表设计
 
 #### tb_user
 
